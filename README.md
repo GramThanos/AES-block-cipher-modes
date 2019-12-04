@@ -32,3 +32,9 @@ CTR Encryption
 ![ctr encrypt](https://raw.githubusercontent.com/GramThanos/AES-block-cipher-modes/master/resources/diagram_ctr_encrypt.png)
 CTR Decryption
 ![ctr encrypt](https://raw.githubusercontent.com/GramThanos/AES-block-cipher-modes/master/resources/diagram_ctr_decrypt.png)
+
+## Authentication Mode
+
+### CMAC (Cipher-based Message Authentication Code)
+CMAC Tag Generation
+![cmac tag generation](https://raw.githubusercontent.com/GramThanos/AES-block-cipher-modes/master/resources/diagram_cmac_tag_generation.png)
