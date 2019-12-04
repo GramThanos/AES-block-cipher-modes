@@ -14,6 +14,31 @@
  *
  * 
  * Example AES CMAC (Cipher-based Message Authentication Code)
+ * 
+ * CMAC Generation
+ *                                  +-----------------+     Where, 
+ *                                  | |B_n| % bs != 0 |           B_x   is the x^th block of the plain-text
+ *                                  +-----------------+           |B_n| is the length of the last block
+ *                                         |                      bs    is the block size, 16 bytes in our case
+ *                     +-----+ +--------+  |  +----+ +----+       AES_K is the AES cipher block encryption with key K
+ *                     | B_n | |B_n|10^i|  |  | K1 | | K2 |       TAG   is the CMAC output
+ *                     +-----+ +--------+  |  +----+ +----+
+ *                         |     |         |     |     |   
+ * +-----+     +-----+    +-------+        |    +-------+  
+ * | B_1 |     | B_2 |     \ SEL /<--------+---->\ SEL /   
+ * +-----+     +-----+      +---+                 +---+    
+ *    |           |           |                     |      
+ *    |     +--->(+)    +--->(+)<-------------------+      
+ *    |     |     |     |     |                            
+ * +-----+  |  +-----+  |  +-----+                         
+ * |AES_K|  |  |AES_K|  |  |AES_K|                         
+ * +-----+  |  +-----+  |  +-----+                         
+ *    |     |     |     |     |                            
+ *    +-----+     +-----+     |                            
+ *                            |                            
+ *                         +-----+                         
+ *                         | TAG |                         
+ *                         +-----+                         
  */
 
 package main

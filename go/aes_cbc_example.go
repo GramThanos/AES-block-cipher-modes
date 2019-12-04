@@ -20,7 +20,7 @@
  *         | B_1 |   | B_2 |       | B_n |     B_x   is the x^th block of the plain-text
  *         +-----+   +-----+       +-----+     IV    is a random initialization vector
  *  +----+    |         |             |        AES_K is the AES cipher block encryption with key K
- *  | IV +----+    +----+    +--------+        C_x   is the x^th block of the cipher-text
+ *  | IV +-->(+)   +-->(+)   +------>(+)       C_x   is the x^th block of the cipher-text
  *  +----+    |    |    |    |        |   
  *         +-----+ | +-----+ |     +-----+
  *         |AES_K| | |AES_K| | ... |AES_K|
@@ -43,7 +43,7 @@
  *         |AES_K| | |AES_K| | ... |AES_K|
  *         +-----+ | +-----+ |     +-----+
  *  +----+    |    |    |    |        |   
- *  | IV +----+    +----+    +--------+   
+ *  | IV +-->(+)   +-->(+)   +------>(+)  
  *  +----+    |         |             |   
  *         +-----+   +-----+       +-----+
  *         | B_1 |   | B_2 |       | B_n |
@@ -66,6 +66,7 @@ import "crypto/cipher"
 
 // PKCS#7 padding
 // We basically append n bytes with the value n at the end of the message
+
 func add_pkcs7_padding(input []byte, blocksize int) []byte {
 	data := input
 	// Calculate pad number

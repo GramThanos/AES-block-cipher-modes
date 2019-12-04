@@ -16,38 +16,40 @@
  * Example AES encryption in CFB (Cipher FeedBack) mode
  * 
  * Encryption
- *              +-----+     +-----+         +-----+   Where, 
- *              | B_1 |     | B_2 |         | B_n |     B_x   is the x^th block of the plain-text
- *              +-----+     +-----+         +-----+     IV    is a random initialization vector
- *  +----+         |           |               |        AES_K is the AES cipher block encryption with key K
- *  | IV +----+    | +----+    | +--------+    |        C_x   is the x^th block of the cipher-text
- *  +----+    |    | |    |    | |        |    |   
- *         +-----+ | | +-----+ | |     +-----+ |   
- *         |AES_K| | | |AES_K| | | ... |AES_K| |   
- *         +-----+ | | +-----+ | |     +-----+ |   
- *            |    | |    |    | |        |    |   
- *            +----+-+    +----+-+        +----+   
- *                 |           |               |   
- *              +-----+     +-----+         +-----+
- *              | C_1 |     | C_2 |         | C_n |
- *              +-----+     +-----+         +-----+
+ *              +-----+       +-----+           +-----+   Where, 
+ *              | B_1 |       | B_2 |           | B_n |     B_x   is the x^th block of the plain-text
+ *              +-----+       +-----+           +-----+     IV    is a random initialization vector
+ *  +----+         |             |                 |        AES_K is the AES cipher block encryption with key K
+ *  | IV +----+    |   +----+    |   +--------+    |        C_x   is the x^th block of the cipher-text
+ *  +----+    |    |   |    |    |   |        |    |   
+ *         +-----+ |   | +-----+ |   |     +-----+ |   
+ *         |AES_K| |   | |AES_K| |   | ... |AES_K| |   
+ *         +-----+ |   | +-----+ |   |     +-----+ |   
+ *            |    |   |    |    |   |        |    |   
+ *            +-->(+)  |    +-->(+)  |        +-->(+)  
+ *                 |   |         |   |             |   
+ *                 |---+         |---+             |   
+ *                 |             |                 |   
+ *              +-----+       +-----+           +-----+
+ *              | C_1 |       | C_2 |           | C_n |
+ *              +-----+       +-----+           +-----+
  * 
  * Decryption
- *              +-----+     +-----+         +-----+   Where, 
- *              | C_1 |     | C_2 |         | C_n |     C_x   is the x^th block of the cipher-text
- *              +-----+     +-----+         +-----+     AES_K is the AES cipher block decryption with key K
- *  +----+         |           |               |        IV    is the initialization vector used in encryption
- *  | IV +----+    +------+    +----------+    |        B_x   is the x^th block of the plain-text
- *  +----+    |    |      |    |          |    |   
- *         +-----+ |   +-----+ |       +-----+ |   
- *         |AES_K| |   |AES_K| |   ... |AES_K| |   
- *         +-----+ |   +-----+ |       +-----+ |   
- *            |    |      |    |          |    |   
- *            +----+      +----+          +----+   
- *                 |           |               |   
- *              +-----+     +-----+         +-----+
- *              | B_1 |     | B_2 |         | B_n |
- *              +-----+     +-----+         +-----+
+ *              +-----+       +-----+           +-----+   Where, 
+ *              | C_1 |       | C_2 |           | C_n |     C_x   is the x^th block of the cipher-text
+ *              +-----+       +-----+           +-----+     AES_K is the AES cipher block decryption with key K
+ *  +----+         |             |                 |        IV    is the initialization vector used in encryption
+ *  | IV +----+    +--------+    +------------+    |        B_x   is the x^th block of the plain-text
+ *  +----+    |    |        |    |            |    |   
+ *         +-----+ |     +-----+ |         +-----+ |   
+ *         |AES_K| |     |AES_K| |    ...  |AES_K| |   
+ *         +-----+ |     +-----+ |         +-----+ |   
+ *            |    |        |    |            |    |   
+ *            +-->(+)       +-->(+)           +-->(+)  
+ *                 |             |                 |   
+ *              +-----+       +-----+           +-----+
+ *              | B_1 |       | B_2 |           | B_n |
+ *              +-----+       +-----+           +-----+
  */
 
 package main
