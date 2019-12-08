@@ -32,7 +32,7 @@ import "crypto/cipher"
 func main() {
 	// Check parameters
 	if len(os.Args) < 2 {
-		fmt.Printf("Invalid syntax\n\nencrypt <filepath>[ <AES key in hex>]\n")
+		fmt.Printf("Invalid syntax\n\nencrypt <filepath>[ <AES key in hex>[ <IV in hex>]]\n")
 		os.Exit(1)
 	}
 
@@ -59,6 +59,26 @@ func main() {
 		fmt.Printf("Generated random key: %s\n", hex.EncodeToString(key))
 	}
 
+	// Generate random iv
+	var iv []byte
+	if len(os.Args) >= 4 {
+		input_iv, err := hex.DecodeString(os.Args[3])
+		if err != nil {
+			fmt.Printf("Invalid IV format.\n")
+			os.Exit(2)
+		}
+		input_iv_size := len(input_iv)
+		if input_iv_size != aes.BlockSize {
+			fmt.Printf("Invalid IV length.\n")
+			os.Exit(2)
+		}
+		iv = input_iv
+	} else {
+		iv = make([]byte, aes.BlockSize)
+		rand.Read(iv)
+		fmt.Printf("Generated random IV: %s\n", hex.EncodeToString(iv))
+	}
+
 	// Open input file
 	ifile, err := os.Open(ipath)
 	if err != nil {
@@ -76,10 +96,6 @@ func main() {
 	}
 	defer ofile.Close()
 
-	// Generate random iv
-	iv := make([]byte, aes.BlockSize)
-	rand.Read(iv)
-	fmt.Printf("Generated random IV: %s\n", hex.EncodeToString(iv))
 	// Save IV to the file
 	ofile.Write(iv)
 
@@ -113,4 +129,5 @@ func main() {
 
 	// Done!
 	fmt.Printf("Done!\n")
+	fmt.Printf("Encrypted file generated: %s\n", opath)
 }
