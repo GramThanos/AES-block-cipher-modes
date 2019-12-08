@@ -63,54 +63,10 @@ using std::exit;
 
 
 /* 
- * Help functions
- */
-
-// ISO/IEC 9797-1 padding method 2
-// So ... 1000..000 padding
-/*
-std::vector<unsigned char> add_iso_padding(std::vector<unsigned char> input, int blocksize) {
-	std::vector<unsigned char> data(input);
-	data.push_back(0x80);
-	for (int i = blocksize - (data.size() % blocksize); i > 0; i--) {
-		data.push_back(0x0);
-	}
-	return data;
-}
-
-std::vector<unsigned char> remove_iso_padding(std::vector<unsigned char> input) {
-	std::vector<unsigned char> data(input);
-	// Start checking from the back to frond
-	int i = data.size() - 1;
-	while (i >= 0) {
-		// If 0b10000000 stop
-		if (data.at(i) == 0x80) {
-			data.pop_back();
-			i--;
-			break;
-		}
-		// If not zeros invalid
-		if (data.at(i) != 0x0) {
-			printf("Invalid padding.");
-			exit(EXIT_FAILURE);
-		}
-		data.pop_back();
-		i--;
-	}
-	if (i < 0) {
-		printf("Failed to remove padding.");
-		exit(EXIT_FAILURE);
-	}
-	
-	return data;
-}
-*/
-
-
-
-/* 
  * AES in ECB Mode
  * Electronic Code Book
+ *
+ * Note: In these functions we use the ISO/IEC 9797-1 padding method 2
  */
 
 std::vector<unsigned char> encrypt_AES_ECB(std::vector<unsigned char> plaintext, std::vector<unsigned char> key_vector) {

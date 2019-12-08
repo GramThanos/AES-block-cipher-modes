@@ -71,52 +71,10 @@ using std::exit;
 
 
 /* 
- * Help functions
- */
-
-// PKCS#7 padding
-// We basically append n bytes with the value n at the end of the message
-/*
-std::vector<unsigned char> add_pkcs7_padding(std::vector<unsigned char> input, int blocksize) {
-	std::vector<unsigned char> data(input);
-	char n = blocksize - (data.size() % blocksize);
-	for (char i = 0; i < n; ++i) {
-		data.push_back(n);
-	}
-	return data;
-}
-
-std::vector<unsigned char> remove_pkcs7_padding(std::vector<unsigned char> input) {
-	std::vector<unsigned char> data(input);
-	// Start checking from the back to frond
-	int i = data.size() - 1;
-	// Get last byte
-	char n = data.at(i);
-	// Check last n bytes
-	int l = i - n;
-	while (i > l) {
-		// If not n
-		if (data.at(i) != n) {
-			printf("Invalid padding.");
-			exit(EXIT_FAILURE);
-		}
-		data.pop_back();
-		i--;
-	}
-	if (i < 0) {
-		printf("Failed to remove padding.");
-		exit(EXIT_FAILURE);
-	}
-	
-	return data;
-}
-*/
-
-
-
-/* 
  * AES in CBC Mode
  * Cipher Block Chaining
+ *
+ * Note: In these functions we use the PKCS#7 padding
  */
 
 std::vector<unsigned char> encrypt_AES_CBC(std::vector<unsigned char> plaintext, std::vector<unsigned char> key_vector, std::vector<unsigned char> iv_vector) {
